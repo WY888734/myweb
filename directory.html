@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子页面 - 左右分栏布局</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========================================================================= */
+        /* 1. 全局重置与主题 */
+        /* ========================================================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background-color: #0D1117; 
+            color: #C9D1D9;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1280px; 
+            margin: 0 auto;
+            padding: 0 32px;
+            width: 100%;
+        }
+
+        /* ========================================================================= */
+        /* 2. 顶部导航栏 (Top Nav) */
+        /* ========================================================================= */
+        nav {
+            background-color: #161B22;
+            border-bottom: 1px solid #30363D;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #58A6FF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin-right: 50px;
+        }
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            padding-left: 0; 
+        }
+        .nav-links li {
+            margin-left: 30px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #C9D1D9;
+            font-weight: 500;
+            padding: 8px 10px;
+            border-radius: 6px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #58A6FF;
+            background-color: #30363D;
+        }
+
+        /* 新增：实时时间显示样式 */
+        .datetime-display {
+            margin-left: auto; /* 将时间推向导航栏最右侧 */
+            color: #8B949E;
+            font-family: 'Consolas', 'Monaco', monospace; /* 等宽字体防止跳动 */
+            font-size: 0.9rem;
+            background: #21262D;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #30363D;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ========================================================================= */
+        /* 3. 主布局容器 (Main Wrapper) */
+        /* ========================================================================= */
+        .main-wrapper {
+            padding-top: 60px; 
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ========================================================================= */
+        /* 4. 左侧垂直导航栏 (Side Nav) */
+        /* ========================================================================= */
+        .sidebar {
+            background-color: #161B22; 
+            border-right: 1px solid #30363D;
+            padding: 20px 0;
+            list-style: none;
+        }
+        .sidebar li { margin-bottom: 2px; }
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: #C9D1D9;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            transition: background-color 0.2s, color 0.2s;
+            border-left: 3px solid transparent; 
+        }
+        .sidebar a:hover {
+            background-color: #30363D;
+            color: #58A6FF;
+        }
+        .sidebar a.active {
+            background-color: #30363D;
+            color: #8957E5;
+            font-weight: 600;
+            border-left: 3px solid #8957E5;
+        }
+        /* 工具入口容器：放在侧边栏底部 */
+        .tool-entry-container {
+            padding: 20px 15px;
+            border-top: 1px solid #30363D; /* 加一条细线与上方菜单区分 */
+            margin-top: auto; /* 如果是 Flex 布局，这行会让它吸底 */
+        }
+
+        /* 按钮主体样式 */
+        .btn-tool-entry {
+            display: flex;
+            align-items: center;
+            background-color: #2273c5; /* GitHub 成功绿 */
+            color: white !important; /* 强制覆盖链接颜色 */
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 悬停动效：变色、放大、发光 */
+        .btn-tool-entry:hover {
+            background-color: #2ea043;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(35, 134, 54, 0.4);
+        }
+
+        /* 点击反馈 */
+        .btn-tool-entry:active {
+            transform: translateY(0);
+        }
+
+        /* 图标间距 */
+        .btn-tool-entry .icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* “NEW”小角标 */
+        .btn-tool-entry .badge {
+            background-color: #f85149; /* 警示红 */
+            color: white;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: auto;
+            animation: pulse 2s infinite; /* 呼吸灯效果 */
+        }
+
+        /* 呼吸灯动画：吸引老师注意 */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        /* ========================================================================= */
+        /* 5. 内容区域 (Content Area) */
+        /* ========================================================================= */
+        .content-area {
+            background-color: #0D1117; 
+            height: calc(100vh - 60px); 
+            width: 100%;
+            overflow: hidden;
+        }
+        .content-area iframe {
+            width: 100%;
+            height: 100%; 
+            border: none;
+            background-color: #fafafa;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    
+    <nav>
+        <div class="container">
+            <div class="navbar">
+                <a href="/index3.html" class="logo"> 
+                    <i class="fas fa-tools"></i> 小白装机
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="/index3.html">主页</a></li>
+                    <li><a href="/index3.html#gallery">装机作品</a></li> 
+                    <li><a href="mailto:someone@microsoft.com?subject=Hello%20again">联系我们</a></li>
+                </ul>
+
+                <div class="datetime-display" id="clock">
+                    <i class="far fa-clock"></i>
+                    <span id="datetime">加载中...</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        <ul class="sidebar">
+            <li><a href="#" class="active" onclick="loadIframe('/page-a.html')"><i class="fas fa-cogs"></i> 安装流程</a></li>
+            <li><a href="/step1.1.html" target="my">步骤1：装机前准备</a></li>
+            <li><a href="/step2.1.html" target="my">步骤2：安装CPU与散热器</a></li>
+            <li><a href="/step3.1.html" target="my">步骤3：安装内存</a></li>
+            <li><a href="/step4.1.html" target="my">步骤4：安装硬盘</a></li>
+            <li><a href="/step5.1.html" target="my">步骤5：安装独立显卡</a></li>
+            <li><a href="/step6.1.html" target="my">步骤6：连接主板与电源</a></li>
+            <li><a href="/step7.1.html" target="my">步骤7：装机收尾与点亮测试</a></li>
+            <li><a href="/step8.1.html" target="my">步骤8：线材整理</a></li>
+            <div class="tool-entry-container">
+                <a href="tool.html" target="my" class="btn-tool-entry">
+                    <span class="icon">🛠️</span>
+                    <span class="text">预算模拟器</span>
+                    <span class="badge">NEW</span>
+                </a>
+            </div>
+        </ul>
+        
+        <div class="content-area">
+            <iframe src="/step1.1.html" name="my" id="contentIframe"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // 模仿倒计时逻辑：实现实时日期时间更新
+        function updateClock() {
+            const now = new Date();
+            
+            // 获取日期
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            
+            // 获取时间
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            // 组装格式：2025-10-24 14:30:05
+            const timeString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            
+            // 更新到页面
+            document.getElementById("datetime").innerHTML = timeString;
+        }
+
+        // 每 1000 毫秒（1秒）调用一次更新函数
+        setInterval(updateClock, 1000);
+
+        // 初始化调用，避免页面加载时出现一秒空白
+        updateClock();
+
+    </script>
+</body>
+</html>

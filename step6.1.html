@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>步骤6：连接电源与机箱接线 - 电脑组装指南</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 1. 基础环境复刻 - GitHub Dark Theme */
+        body {
+            background-color: #0D1117; 
+            color: #C9D1D9;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            padding: 30px;
+            margin: 0;
+        }
+
+        header {
+            border-bottom: 2px solid #30363D;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #58A6FF;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        h1 i { margin-right: 12px; }
+
+        .card {
+            background: #161B22;
+            border: 1px solid #30363D;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        h2 { font-size: 1.4rem; color: #8957E5; margin-top: 10px; }
+        h3 { font-size: 1.1rem; color: #58A6FF; margin-top: 15px; }
+
+        /* 2. 核心流程列表 */
+        .flow-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        .flow-list li {
+            padding: 10px 15px;
+            background: rgba(88, 166, 255, 0.05);
+            border-left: 3px solid #58A6FF;
+            margin-bottom: 10px;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+        }
+        .flow-list strong { color: #f9826c; }
+
+        /* 3. 线材辨识网格 */
+        .cable-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .cable-card {
+            background: #21262D;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #30363D;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .cable-card:hover { border-color: #58A6FF; transform: translateY(-3px); }
+        .cable-card i { font-size: 1.5rem; color: #58A6FF; margin-bottom: 10px; }
+        .cable-card strong { display: block; color: #C9D1D9; margin-bottom: 5px; font-size: 0.9rem; }
+        .cable-card p { font-size: 0.8rem; color: #8B949E; margin: 0; }
+
+        /* 4. 视频容器 */
+        .media-wrapper {
+            max-width: 650px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #30363D;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* 5. 专业技巧框 (Success/Tip) */
+        .pro-tip {
+            background-color: rgba(63, 185, 80, 0.1);
+            border: 1px solid rgba(63, 185, 80, 0.4);
+            border-left: 4px solid #3fb950;
+            padding: 18px;
+            margin: 20px 0;
+            border-radius: 6px;
+            color: #C9D1D9;
+        }
+        .pro-tip strong { color: #3fb950; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+
+        /* 6. 页脚导航 */
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #30363D;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a { color: #8B949E; text-decoration: none; font-size: 0.9rem; }
+        .next-step {
+            background: #238636;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .next-step:hover { background: #2ea043; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fas fa-plug"></i> 步骤 6：连接电源与机箱接线</h1>
+    </header>
+
+    <main>
+        <div class="card">
+            <h2>一、核心接线流程</h2>
+            
+            <ul class="flow-list">
+                <li><strong>1. 固定电源：</strong> 将电源风扇<strong>朝向机箱底部散热孔</strong>放入，并拧紧背部四颗大螺丝。</li>
+                <li><strong>2. 主板 24-Pin：</strong> 最大的扁长插头，连接主板右侧插槽，确保卡扣完全扣住。</li>
+                <li><strong>3. CPU 4+4 Pin：</strong> 连接主板左上角供电口。注意：线材通常标有 <strong>"CPU"</strong> 字样。</li>
+                <li><strong>4. 显卡 6+2 Pin：</strong> 标有 <strong>"PCI-E"</strong> 字样，根据显卡接口数量插满。</li>
+                <li><strong>5. 机箱跳线：</strong> 连接 Power SW（开关）、Reset SW（重启）等，需参考主板说明书的 <strong>F_PANEL</strong> 针脚定义。</li>
+            </ul>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <h2>二、视频实操演示</h2>
+            <div class="media-wrapper">
+                <div class="video-container">
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=433624861&bvid=BV1RG411N7Uq&cid=918314880&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>三、线材辨识指南</h2>
+            <div class="cable-grid">
+                <div class="cable-card">
+                    <i class="fas fa-microchip"></i>
+                    <strong>MB 24-Pin</strong>
+                    <p>主板主供电线，提供整板基础电压。</p>
+                </div>
+                <div class="cable-card">
+                    <i class="fas fa-bolt"></i>
+                    <strong>CPU 4+4 Pin</strong>
+                    <p>注意别和显卡线混淆，通常可拆分为两个4Pin。</p>
+                </div>
+                <div class="cable-card">
+                    <i class="fas fa-video"></i>
+                    <strong>PCI-E 6+2 Pin</strong>
+                    <p>显卡专用，卡扣在侧面，可组合为8Pin。</p>
+                </div>
+                <div class="cable-card">
+                    <i class="fas fa-hdd"></i>
+                    <strong>SATA 电源线</strong>
+                    <p>“L”型接口，用于SATA固态或机械硬盘。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>四、电源 (PSU) 进阶详情</h2>
+            
+            <h3>1. 模组分类</h3>
+            <ul style="font-size: 0.95rem; color: #8B949E; padding-left: 20px;">
+                <li><strong style="color: #58A6FF;">全模组：</strong> 线材可自由插拔，按需接线，理线最美观（强烈推荐）。</li>
+                <li><strong style="color: #58A6FF;">非模组：</strong> 线材固定在电源上，多余的线只能塞在机箱电源仓角落。</li>
+            </ul>
+
+            <h3>2. 品牌排名参考</h3>
+            <ul style="font-size: 0.95rem; color: #8B949E; padding-left: 20px;">
+                <li><strong>顶级梯队：</strong> 海韵 (Seasonic)、振华 (Super Flower)</li>
+                <li><strong>一线品牌：</strong> 安钛克 (Antec)、酷冷至尊、航嘉、长城 (金牌系列)</li>
+                <li><strong>注意：</strong> 尽量选择通过 <strong>80 PLUS 金牌认证</strong> 的电源。</li>
+            </ul>
+
+            <div class="pro-tip">
+                <strong><i class="fas fa-lightbulb"></i> 专业理线技巧：</strong>
+                <p>建议采取“<strong>先接线，后捆扎</strong>”的策略。先将所有线材插好并确认电脑能正常点亮（即步骤7），再使用理线带将背板线材理顺。否则一旦接错，拆除扎带会非常耗时。</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <a href="index3.html" target="_parent"><i class="fas fa-home"></i> 返回主页面</a>
+        <a href="step7.1.html" class="next-step">下一步：点亮测试 <i class="fas fa-arrow-right"></i></a>
+    </footer>
+
+</body>
+</html>

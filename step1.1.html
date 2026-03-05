@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>步骤1：装机前准备</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 1. 基础环境 */
+        body {
+            background-color: #0D1117; 
+            color: #C9D1D9;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            padding: 30px;
+            margin: 0;
+        }
+
+        header {
+            border-bottom: 2px solid #30363D;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #58A6FF;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        h1 i { margin-right: 12px; }
+
+        .card {
+            background: #161B22;
+            border: 1px solid #30363D;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        h2 { font-size: 1.4rem; color: #8957E5; margin-top: 10px; }
+
+        /* 2. 列表美化 */
+        .flow-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        .flow-list li {
+            padding: 8px 15px;
+            background: rgba(88, 166, 255, 0.05);
+            border-left: 3px solid #58A6FF;
+            margin-bottom: 8px;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+        }
+
+        /* 3. 限制视频和图片的最大宽度并居中 */
+        .media-wrapper {
+            max-width: 650px; /* 限制最大宽度，防止模糊 */
+            margin: 20px auto; /* 居中 */
+            text-align: center;
+        }
+
+        /* 视频比例容器 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #30363D;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        /* 图片限制 */
+        img {
+            max-width: 100%; /* 自适应容器宽度 */
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #30363D;
+            transition: 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        img:hover { border-color: #58A6FF; transform: scale(1.02); }
+
+        /* 4. 标签与按钮 */
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+            justify-content: center; /* 标签也居中显示 */
+        }
+        .tag {
+            background: #21262D;
+            border: 1px solid #30363D;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #79C0FF;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            color: #58A6FF;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: #21262D;
+            border: 1px solid #30363D;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+        .link-btn:hover { background: #30363D; }
+
+        /* 控制轮播图图片尺寸 */
+            #slide {
+            width: 500px; /* 固定宽度（可改为百分比，如80%） */
+            height: 300px; /* 固定高度（可省略，让高度自适应宽度） */
+            object-fit: cover; /* 关键：保持图片比例，裁剪超出部分（避免拉伸） */
+            }
+
+        /* 5. 页脚导航 */
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #30363D;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a { color: #8B949E; text-decoration: none; font-size: 0.9rem; }
+        .next-step {
+            background: #238636;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fas fa-toolbox"></i> 步骤1：装机前准备</h1>
+    </header>
+
+    <div class="card">
+        <h2>核心流程</h2>
+        <ul class="flow-list">
+            <li><strong>环境准备</strong>：铺装机垫或硬纸板，确保桌面宽敞。</li>
+            <li><strong>释放静电</strong>：触摸大面积金属物体或佩戴防静电手环。</li>
+            <li><strong>清点硬件</strong>：确认主板、CPU、内存等核心组件及螺丝配件齐全。</li>
+            <li><strong>准备工具</strong>：十字螺丝刀（磁吸型）及导热硅脂。</li>
+        </ul>
+
+        <p style="text-align:center; color: #79C0FF; font-size: 0.9rem;">
+            <i class="fas fa-video"></i> 视频参考：认识电脑硬件
+        </p>
+        <div class="media-wrapper">
+            <div class="video-container">
+                <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=691091263&bvid=BV1224y1Q7K9&cid=948102928&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="text-align: center;">
+        <h2>相关物品详情</h2>
+        <h3>1. 必备硬件清单</h3>
+        <div class="tag-group">
+            <span class="tag">主板</span><span class="tag">CPU</span><span class="tag">散热器</span>
+            <span class="tag">内存</span><span class="tag">硬盘</span><span class="tag">电源</span><span class="tag">机箱</span>
+        </div>
+        <div class="media-wrapper">
+            
+            <img src="/images/配件大全.png" alt="装机必备硬件">
+        </div>
+    </div>
+
+    <div class="card" style="text-align: center;">
+        <h3>2. 认识主板插槽</h3>
+        <p>以 PRIME B550M-K ARGB 为例，重点查看 CPU 与内存插槽布局：</p>
+        <a href="https://www.asus.com.cn/motherboards-components/motherboards/prime/prime-b550m-k-argb/" target="_blank" class="link-btn">
+
+            <i class="fas fa-search"></i> 查看官方插槽高清图
+        </a>
+        <div class="slider">
+        <img id="slide" src="/images/主板.png" alt="Slide">
+        </div>
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
+    </div>
+
+
+<!-- 1.轮播图 -->
+    <script>
+        let images = ["/images/主板.png", "/images/PRIME B550M-K ARGB.png"];
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            document.getElementById('slide').src = images[index];
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showSlide(currentIndex);
+        }
+
+        setInterval(nextSlide, 3000);
+    </script>
+
+
+    <footer>
+        <a href="index3.html" target="_parent"><i class="fas fa-home"></i> 返回主页面</a>
+        <a href="step2.1.html" class="next-step">下一步：安装 CPU <i class="fas fa-arrow-right"></i></a>
+    </footer>
+
+</body>
+</html>

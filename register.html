@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用户注册 - 现代样式</title>
+
+<style>
+/* ================== 菜单样式 ================== */
+nav {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+nav > ul > li {
+    background-color: #161B22;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    width: 120px;
+}
+nav > ul > li span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    color: #58A6FF;
+    cursor: pointer;
+}
+nav > ul > li span::before {
+    content: "☰";
+    margin-right: 8px;
+}
+#submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 180px;
+    background-color: #161B22;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+}
+#submenu li a {
+    display: block;
+    padding: 12px 20px;
+    color: #C9D1D9;
+    text-decoration: none;
+}
+#submenu li:hover a {
+    color: #58A6FF;
+}
+
+/* ================== 回到顶部按钮 ================== */
+#topBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: none;
+    background-color: #161B22;
+    color: #58A6FF;
+    border: 1px solid #30363D;
+    cursor: pointer;
+}
+
+/* ================== 表单样式 ================== */
+body {
+    background-color: #0D1117;
+    color: #C9D1D9;
+    font-family: Segoe UI, sans-serif;
+    margin: 0;
+    padding-top: 80px;
+}
+.register-form {
+    background-color: #161B22;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 500px;
+    margin: auto;
+}
+.register-form h1 {
+    color: #58A6FF;
+    text-align: center;
+}
+label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.label-text {
+    width: 100px;
+    text-align: right;
+    margin-right: 20px;
+    color: #8B949E;
+}
+input, select, textarea {
+    flex: 1;
+    padding: 10px;
+    background-color: #0D1117;
+    border: 1px solid #30363D;
+    color: #C9D1D9;
+}
+.radio-group {
+    padding-left: 120px;
+    margin-bottom: 20px;
+}
+.button-group {
+    text-align: center;
+}
+.button-group input {
+    padding: 10px 20px;
+    margin: 0 10px;
+}
+#error, #pwdError {
+    color: #F87171;
+    font-size: 0.85rem;
+    margin-left: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 菜单 -->
+<nav>
+<ul>
+<li onmouseover="showMenu()" onmouseout="hideMenu()">
+<span>Menu</span>
+<ul id="submenu">
+<li><a href="/index3.html">主页</a></li>
+<li><a href="/directory.html">装机步骤</a></li>
+<li><a href="/index3.html#gallery">装机作品</a></li>
+<li><a href="/index.html">旧版入口</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+
+<button id="topBtn" onclick="scrollToTop()">Top</button>
+
+<!-- 注册表单 -->
+<form class="register-form" onsubmit="return validateForm()">
+<h1>注册</h1>
+
+<label>
+<span class="label-text">用户名：</span>
+<input type="text" required>
+</label>
+
+<label>
+<span class="label-text">密码：</span>
+<input type="password" id="password" required>
+<span id="pwdError"></span>
+</label>
+
+<div class="radio-group">
+性别：
+<input type="radio" name="sex" required>男
+<input type="radio" name="sex">女
+</div>
+
+<label>
+<span class="label-text">身份证号：</span>
+<input type="text" required>
+</label>
+
+<label>
+<span class="label-text">出生年月：</span>
+<input type="date" required>
+</label>
+
+<label>
+<span class="label-text">所在地：</span>
+<select required>
+<option value="">请选择</option>
+<option>北京</option>
+<option>上海</option>
+<option>广州</option>
+<option>深圳</option>
+</select>
+</label>
+
+<label>
+<span class="label-text">邮箱：</span>
+<input type="text" id="email" required>
+<!--required：不能为空  -->
+<span id="error"></span>
+</label>
+
+<label>
+<span class="label-text">QQ：</span>
+<input type="text">
+</label>
+
+<label style="align-items:flex-start">
+<span class="label-text">自我介绍：</span>
+<textarea></textarea>
+</label>
+
+<div class="button-group">
+<input type="reset" value="重置">
+<input type="submit" value="提交">
+</div>
+</form>
+
+<script>
+// ========== 导航菜单显隐功能 ==========
+function showMenu(){submenu.style.display="block"}
+function hideMenu(){submenu.style.display="none"}
+
+// ========== 回到顶部按钮显隐功能 ==========
+window.onscroll=()=>topBtn.style.display=scrollY>100?"block":"none"
+function scrollToTop(){scrollTo({top:0,behavior:"smooth"})}
+
+// ========== 表单验证功能 ==========
+function validateForm(){
+    const email=document.getElementById("email").value;
+    const password=document.getElementById("password").value;
+
+    const emailPattern=/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/;
+    const passwordPattern=/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*]{8,20}$/;
+
+    if(!emailPattern.test(email)){
+        error.textContent="请输入有效邮箱";
+        return false;
+    }
+    error.textContent="";
+
+    if(!passwordPattern.test(password)){
+        pwdError.textContent="密码需8-20位，包含字母和数字";
+        return false;
+    }
+    pwdError.textContent="";
+    return true;
+}
+</script>
+
+</body>
+</html>

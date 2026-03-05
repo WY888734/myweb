@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>步骤2：安装CPU与散热器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局基础美化 */
+        body {
+            background-color: #0D1117; 
+            color: #C9D1D9;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            padding: 30px;
+            margin: 0;
+        }
+
+        /* 顶部标题 */
+       header {
+            border-bottom: 2px solid #30363D;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #58A6FF;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        h1 i { margin-right: 12px; }
+
+        .card {
+            background: #161B22;
+            border: 1px solid #30363D;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        h2 { font-size: 1.4rem; color: #8957E5; border-left: 4px solid #8957E5; padding-left: 15px; }
+        h3 { color: #F0E68C; border-bottom: 1px solid #30363D; padding-bottom: 8px; }
+        h4 { color: #79C0FF; }
+
+        /* 布局控制 */
+        .media-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+            margin: 15px 0;
+        }
+
+        .media-box {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* CPU图片尺寸缩小处理 */
+        .cpu-main-img {
+            max-width: 200px !important; 
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #30363D;
+            transition: 0.3s;
+        }
+
+        /* 视频容器适配 */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #30363D;
+            background: #000;
+            margin-top: 15px;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* 图片通用样式 */
+        .content-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #30363D;
+            transition: 0.3s;
+        }
+        .content-img:hover, .cpu-main-img:hover { border-color: #58A6FF; transform: scale(1.02); }
+
+        /* 表格悬浮效果 */
+        .table-container { overflow-x: auto; margin: 15px 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #0D1117;
+            font-size: 0.95rem;
+        }
+        th, td {
+            border: 1px solid #30363D;
+            padding: 12px;
+            text-align: left;
+        }
+        th { background: #21262D; color: #58A6FF; }
+        
+        tbody tr { transition: background-color 0.2s ease; }
+        tbody tr:hover { background-color: rgba(88, 166, 255, 0.1) !important; }
+        tr:nth-child(even) { background: #161B22; }
+
+        /* 页脚导航 */
+        footer {
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid #30363D;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-link { color: #8B949E; font-size: 0.9rem; text-decoration: none; }
+        .nav-link:hover { color: #58A6FF; }
+        .next-btn {
+            background: #238636;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none !important;
+        }
+        .next-btn:hover { background: #2ea043; }
+
+        hr { border: 0; border-top: 1px solid #30363D; margin: 30px 0; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fas fa-toolbox"></i> 步骤2：安装CPU与散热器</h1>
+    </header>
+
+    <div class="card">
+        <h2>核心流程</h2>
+        <ol>
+            <li>打开主板CPU插槽→对齐金三角放入CPU→扣紧插槽固定；</li>
+            <li>在CPU表面均匀涂抹硅脂→根据平台（Intel/AMD）安装散热器→锁紧扣具。</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>相关硬件详情</h2>
+        <h3>1. CPU</h3>
+        <div class="media-row">
+            <div style="flex: 0 0 auto;">
+                <img src="/images/CPU.png" alt="CPU图片" class="cpu-main-img">
+            </div>
+            <div style="flex: 1;">
+                <p><strong>硬件介绍</strong>：核心参数包含接口类型、TDP功耗，装机关键是"金三角对齐插槽标识"，禁止触碰底部针脚/金属触点。<br>
+                注意：CPU接口分为 Intel（针脚/插槽）和 AMD（针脚/插座），安装时需注意区分。AMD又分为AM4和AM5两种插槽，前者兼容旧主板，后者为最新。</p>
+            </div>
+        </div>
+
+        <p><strong>AMD AM4插槽CPU的安装方法与AM5插槽CPU的安装方法：</strong></p>
+        <div class="media-row">
+            <div class="media-box">
+                <div class="video-wrapper">
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=518541177&bvid=BV1hg411J7Zv&cid=918301379&p=1" scrolling="no" frameborder="no" allowfullscreen="true"></iframe>
+                </div>
+            </div>
+            <div class="media-box">
+                <div class="video-wrapper">
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=648624234&bvid=BV1Ue4y1T7KD&cid=918302942&p=1" scrolling="no" frameborder="no" allowfullscreen="true"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <p><strong>品牌排名</strong>：
+            1.<a href="//www.intel.cn/content/www/cn/zh/homepage.html" target="_blank" style="color:#58A6FF">Intel英特尔</a>；
+            2.<a href="https://www.amd.com/zh-cn/support/download/drivers.html" target="_blank" style="color:#58A6FF">AMD</a>；
+            3.<a href="https://www.loongson.cn/" target="_blank" style="color:#58A6FF">龙芯中科</a>；
+            4. 兆芯；
+            5. 飞腾Phytium。
+        </p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr><th>排名</th><th>CPU型号</th><th>性能级别</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Intel i9-14900K</td><td>顶级</td></tr>
+                    <tr><td>2</td><td>AMD Ryzen 9 7950X</td><td>顶级</td></tr>
+                    <tr><td>3</td><td>Intel i7-14700K</td><td>高端</td></tr>
+                    <tr><td>4</td><td>AMD Ryzen 7 7800X3D</td><td>高端</td></tr>
+                    <tr><td>5</td><td>Intel i5-14600K</td><td>中高端</td></tr>
+                    <tr><td>6</td><td>AMD Ryzen 5 7600X</td><td>中高端</td></tr>
+                    <tr><td>7</td><td>Intel i5-13400F</td><td>中端</td></tr>
+                    <tr><td>8</td><td>AMD Ryzen 5 5600G</td><td>中端</td></tr>
+                    <tr><td>9</td><td>Intel i3-13100</td><td>入门</td></tr>
+                    <tr><td>10</td><td>AMD Ryzen 3 5100</td><td>入门</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr><th>对比项</th><th>AM4</th><th>AM5</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><b>发布时间与系列</b></td><td>2016年推出，支持锐龙1000至5000系列</td><td>2022年推出，支持锐龙7000系列及后续</td></tr>
+                    <tr><td><b>socket类型</b></td><td>PGA（针脚在CPU底部），1331个针脚</td><td>LGA（针脚在主板上），增强电源传输</td></tr>
+                    <tr><td><b>内存支持</b></td><td>支持DDR4内存，最大128GB</td><td>仅支持DDR5内存，最大192GB</td></tr>
+                    <tr><td><b>PCIe支持</b></td><td>支持PCIe 3.0和PCIe 4.0</td><td>支持PCIe 5.0，速度提升明显</td></tr>
+                    <tr><td><b>散热解决方案</b></td><td>有专门设计的多种散热器</td><td>大多数AM4散热器可重复使用</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p><strong>cpu供电接口与安装示意：</strong></p>
+        <div class="media-row">
+            <img src="/images/CPU供电.png" alt="CPU供电接口" class="content-img" style="height:180px;"> 
+            <img src="/images/CPU2.png" alt="CPU安装1" class="content-img" style="height:180px;">  
+            <img src="/images/cpu1.png" alt="CPU安装2" class="content-img" style="height:180px;"> 
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="card">
+        <h3>2. CPU散热器</h3>
+        <div class="media-row">
+            <div style="flex: 0 0 auto;">
+                <img src="/images/CPU散热器.png" alt="CPU散热器图片" class="content-img" style="height:220px; width:auto;">
+            </div>
+            <div style="flex: 1;">
+                <p><strong>硬件介绍</strong>：分为风冷、水冷两类，需按CPU的TDP功耗选择适配型号；安装差异为Intel常用针脚卡扣，AMD多需先装背板再拧弹簧螺丝。</p>
+               
+            </div>
+        </div>
+        
+        <p><strong>风冷散热器的安装方法演示:</strong></p>
+        <div class="video-wrapper" style="padding-bottom: 29.5%; max-width: 400px; margin: 0 auto;" >
+            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=946063696&bvid=BV12W4y1g7Ak&cid=922364916&p=1" scrolling="no" frameborder="no" allowfullscreen="true"></iframe>
+        </div>
+        <p><strong>品牌排名</strong>：1. 猫头鹰；2. 利民；3. 九州风神；4. 酷冷至尊；5. ID-COOLING。</p>
+    </div>
+
+    <hr>
+
+    <div class="card">
+        <h3>3. 机箱风扇散热器</h3>
+        <div class="media-row">
+            <div style="flex: 0 0 auto;">
+                <img src="/images/机箱风扇.png" alt="机箱风扇" class="content-img" style="height:180px; width:auto;">
+            </div>
+            <div style="flex: 1;">
+                <p><strong>硬件介绍</strong>：机箱风扇用于机箱内部散热，选购时注意尺寸、转速和噪音。带有ARGB灯效的风扇可通过主板调节。注意：风扇供电线切记不要插在CPU散热器的接口上。</p>
+            </div>
+        </div>
+
+        <p><strong>视频教程：机箱风扇安装 与 串联方法</strong></p>
+        <div class="media-row">
+            <div class="media-box">
+                <div class="video-wrapper">
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=391110098&bvid=BV15d4y1x7b7&cid=922393356&p=1" scrolling="no" frameborder="no" allowfullscreen="true"></iframe>
+                </div>
+            </div>
+            <div class="media-box">
+                <div class="video-wrapper">
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=819919524&bvid=BV1rG4y1L7c2&cid=954873697&p=1" scrolling="no" frameborder="no" allowfullscreen="true"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <h4>机箱风扇控速类型分类</h4>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr><th>控速类型</th><th>核心控制</th><th>优点</th><th>缺点</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>固定转速</td><td>无控速功能</td><td>成本低、稳定</td><td>噪音大</td></tr>
+                    <tr><td>手动调阻</td><td>旋钮调节</td><td>实时可控</td><td>需手动频繁调整</td></tr>
+                    <tr style="background-color: rgba(131, 184, 230, 0.1);"><td>PWM控速</td><td>主板PWM信号</td><td>精度高、自动调节</td><td>需硬件支持</td></tr>
+                    <tr><td>电压控速</td><td>调节DC电压</td><td>兼容性强</td><td>调节范围窄</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <a href="index3.html" target="_parent" class="nav-link"><i class="fas fa-arrow-left"></i> 返回主页面</a>
+        <a href="step3.1.html" class="next-btn">下一步 <i class="fas fa-arrow-right"></i></a>
+    </footer>
+</body>
+</html>

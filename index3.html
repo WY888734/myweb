@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小白装机 - 极简装机引导</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.9/fullpage.min.css" />
+    <style>
+        /* ========================================================================= */
+        /* 1. 全局重置与主题  */
+        /* ========================================================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: #0D1117; 
+            color: #C9D1D9; /* 浅灰色文字，高对比度 */
+            line-height: 1.6;
+            min-height: 100vh;
+            
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            width: 100%;
+        }
+        
+        .monospace {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            background-color: rgba(240, 246, 252, 0.15);
+            padding: 2px 4px;
+            border-radius: 6px;
+        }
+
+        /* ========================================================================= */
+        /* 2. 导航栏 - 设置为 fixed 元素，脱离 fullpage 滚动流 */
+        /* ========================================================================= */
+        nav {
+            background-color: #161B22;
+            border-bottom: 1px solid #30363D;
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        /* 导航栏样式保持不变 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #58A6FF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #C9D1D9;
+            font-weight: 500;
+            padding: 8px 10px;
+            border-radius: 6px;
+            transition: background-color 0.3s, color 0.3s;/* 0.3 秒内平滑过渡 */
+
+        }
+
+        .nav-links a:hover {
+            color: #58A6FF;
+            background-color: #30363D;
+        }
+        
+        /* 按钮样式保持不变 */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid #58A6FF;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: #58A6FF;
+        }
+
+        .btn-login:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: #58A6FF;
+        }
+
+        .btn-register {
+            background: #238636;
+            color: #fff;
+            border-color: #238636;
+        }
+
+        .btn-register:hover {
+            background: #2EA043;
+            border-color: #2EA043;
+        }
+
+        /* ========================================================================= */
+        /* 3. fullPage 核心区域样式调整  */
+        /* ========================================================================= */
+        
+        /* 粒子效果容器 */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* 置于最底层 */
+        }
+        
+        main {
+            padding-top: 60px; 
+            position: relative; /* 确保内容在粒子层之上 */
+            z-index: 1;
+        }
+        
+      
+        .section {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 英雄区域容器 - fullPage.js 会接管其高度和居中，我们只需设置内容居中 */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* 让内容撑满 fullPage 自动设置的 section 高度 */
+            text-align: center; /* 确保内部文字居中 */
+            padding: 40px;
+        }
+        
+        .hero-section header {
+            max-width: 900px;
+        }
+        
+        /* 主标题 */
+        .hero-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            color: #F0F6FC;
+        }
+
+        /* 副标题/描述 */
+        .hero-section p {
+            font-size: 1.3rem;
+            color: #8B949E;
+            margin-bottom: 40px;
+        }
+        
+        /* 行动号召按钮 */
+        .cta-button {
+            /* 设置按钮内边距：上下15像素，左右30像素（控制按钮大小） */
+            padding: 15px 30px;
+            /* 设置按钮文字大小：1.25rem（相对根元素字体大小，更适配响应式） */
+            font-size: 1.25rem;
+            /* 设置按钮圆角：8像素（让按钮边角更圆润，不是直角） */
+            border-radius: 8px;
+            /* 设置文字粗细：700（对应加粗效果，可选值100-900） */
+            font-weight: 700;
+            /* 去除文字下划线（常用于a标签按钮，清除默认链接下划线） */
+            text-decoration: none;
+            /* 设置按钮背景颜色：紫色（十六进制颜色值#8957E5） */
+            background-color: #8957E5; 
+            /* 设置按钮文字颜色：深灰棕色（十六进制颜色值#806b6b） */
+            color: #ffffff;
+            /* 去除按钮默认边框（清除浏览器自带的按钮边框样式） */
+            border: none;
+            /* 设置按钮阴影效果：水平偏移0、垂直偏移0、模糊半径20px、阴影颜色为按钮主色的40%透明度 */
+            box-shadow: 0 0 20px rgba(137, 87, 229, 0.4);
+            /* 设置过渡动画：针对背景色（0.2秒）、位移（0.2秒）、阴影（0.3秒），实现 hover 时平滑过渡 */
+            transition: background-color 0.2s, transform 0.2s, box-shadow 0.3s;
+        }
+
+            /* 定义CTA按钮的鼠标悬浮状态样式（hover伪类） */
+            .cta-button:hover {
+                /* 悬浮时背景颜色：浅紫色（比默认背景色更亮，提升交互反馈） */
+                background-color: #A371F7;
+                /* 悬浮时向上位移：-2像素（轻微上浮效果，增强交互立体感） */
+                transform: translateY(-2px);
+                /* 悬浮时阴影效果：水平偏移0、垂直偏移0、模糊半径30px、阴影颜色为按钮主色的60%透明度（阴影更大更明显） */
+                box-shadow: 0 0 30px rgba(137, 87, 229, 0.6);
+            }
+
+        /* 4. 作品展示区域 (Gallery Section) - 第二页样式 */
+        .gallery-section {
+            background-color: #161B22; /* 确保第二页背景色一致 */
+            color: #C9D1D9;
+            text-align: center;
+            display: flex; /* 使用 flexbox 垂直居中内容 */
+            flex-direction: column;/* 定义Flex容器的主轴方向为垂直方向（从上到下） */
+            justify-content: center;/* 控制Flex项目在主轴上的对齐方式为水平居中（当主轴为column时，是垂直居中） */
+            align-items: center; /* 控制Flex项目在交叉轴上的对齐方式为垂直居中（当主轴为column时，是水平居中） */
+        }
+        
+        /* 作品内容容器内部的 container，用于限制宽度 */
+        .gallery-content-container {
+            max-width: 1280px;
+            padding: 40px 32px;
+            width: 100%; /* 使容器宽度自适应 */
+        }
+        
+        .gallery-section h2 {
+            font-size: 2rem;
+            color: #F0F6FC;
+            margin-bottom: 10px;
+        }
+        
+        .gallery-section p {
+            margin-bottom: 30px;
+            color: #8B949E;
+        }
+
+        /* 媒体内容容器 */
+        .media-container {
+               /* 1. 开启Flex布局，将元素变为Flex容器，子元素自动成为Flex项目 */
+                display: flex;
+                /* 2. 开启Flex项目自动换行功能，防止项目溢出容器 */
+                flex-wrap: wrap;
+                /* 3. 设置Flex项目之间的间距（水平+垂直方向） */
+                gap: 20px;
+                /* 4. 设置容器自身的上外边距，与上方元素拉开20像素距离 */
+                margin-top: 20px;
+                /* 5. 控制Flex项目在主轴上水平居中对齐 */
+                justify-content: center; /* 居中媒体项 */
+        }
+        
+        /* 媒体项样式 */
+        .media-item {
+            /* 调整 flex 基础值，确保在小屏幕上正常换行，在大屏幕上平分 */
+            flex: 1 1 300px;/* 给Flex子项目设置弹性伸缩规则：放大比例1、缩小比例1、基准宽度300px */
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;/* 隐藏元素内部超出容器范围的内容，避免内容溢出破坏布局 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            background-color: #0D1117; /* 媒体卡片背景 */
+        }
+        
+        /* 图片和视频样式 */
+        .media-item img, .media-item video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* ========================================================================= */
+        /* 5. 页脚 (Footer) - fullPage 模式下通常作为最后一个 section 或 fixed 元素 */
+        /* ========================================================================= */
+        
+        .footer-section {
+            background: #161B22; 
+            color: #8B949E;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid #30363D;
+        }
+        
+        .footer-section p {
+            font-size: 0.9rem;
+            padding: 20px 0;
+        }
+        
+        .footer-section a {
+            color: #58A6FF;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #A371F7;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 粒子效果容器 -->
+    <div id="particles-js"></div>
+    
+    <nav>
+        <div class="container">
+            <div class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-tools"></i>
+                    小白装机
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#home">主页</a></li>
+                    <li><a href="/directory.html">装机步骤</a></li> 
+                    <li><a href="#gallery">装机作品</a></li> 
+                    <li><a href="/index.html">旧版入口</a></li> 
+                </ul>
+                
+                <div class="auth-buttons">
+                    <a href="/login.html" class="btn btn-login">登录</a>
+                    <a href="/register.html" class="btn btn-register">注册</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div id="fullpage">
+        
+        <div class="section"data-anchor="home">
+            <div class="container hero-section">
+                <header>
+                    <h1>从零到一，掌握你的<span class="monospace">PC</span>组装技能</h1>
+                    <p>专业、详细、系统的电脑装机教程。让小白也能轻松组建梦想主机。</p>
+                   
+                    <br>
+
+                    <a href="/directory.html" class="cta-button">
+                        <i class="fas fa-hammer"></i> 开始装机指南
+                    </a>
+                </header>
+            </div>
+        </div>
+
+        <div class="section" data-anchor="gallery">
+            <div class="gallery-content-container">
+                <h2>站主作品</h2>
+                <p>欣赏一些精美的装机作品和演示视频</p>
+                
+                <div class="media-container"> 
+                    <div class="media-item">
+                        <img src="/images/微信图片_20251021191407_37_17.jpg" alt="装机图集">
+                    </div>
+                    
+                    <div class="media-item">
+                        <video controls="controls" loop muted>
+                            <source src="/videos/8a7b271e2da11b70628c5b5829afc53e.mp4" type="video/mp4" />
+                            </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section fp-auto-height footer-section">
+            <div class="container">
+                <p>© 2025 小白装机指南 | <a href="mailto:contact@example.com">联系我们</a> | <a href="/privacy.html">隐私</a></p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Particles.js 库 -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.9/fullpage.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new fullpage('#fullpage', {
+                // ⚠️ 许可证密钥：请从 fullPage.js 官网获取免费的个人或非商业密钥
+                licenseKey: 'YOUR_KEY_HERE', 
+                
+                // 配置选项
+                autoScrolling: true,          // 启用「自动全屏滚动」（核心功能）
+                // 效果：鼠标滚轮、键盘上下键、点击导航时，页面会直接滚动到「下一个完整屏幕」，而非普通的平滑滚动
+                scrollingSpeed: 700,          // 滚动速度（毫秒）
+                verticalCentered: true,       // 内容垂直居中
+                navigation: true,             // 显示右侧导航点
+                navigationPosition: 'right',
+                menu: '#menu',                // 如果你有导航菜单，可以在这里指定
+                anchors: ['home', 'gallery','example', 'footer'], // 为每个 section 设置锚点
+                // `fp-auto-height` 类用于让页脚 section 自动适应内容高度
+                // 兼容性调整
+                fitToSection: true,           // 确保屏幕完全贴合某一 section
+            });
+            
+            // 初始化粒子效果 
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 80,  // 减少粒子数量，更简洁
+                        density: {
+                            enable: true,
+                            value_area: 1000  // 增大密度范围，让粒子分布更均匀
+                        }
+                    },
+                    color: {
+                        value: ["#FFFFFF", "#C9D1D9", "#8B949E"]  // 多种浅色调，更有层次感
+                    },
+                    shape: {
+                        type: "circle",
+                        stroke: {
+                            width: 0,
+                            color: "#000000"
+                        }
+                    },
+                    opacity: {
+                        value: 0.7,  // 提高透明度，更清晰
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 0.5,  // 更慢的动画
+                            opacity_min: 0.3,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 2,  // 更小的粒子尺寸
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 1,
+                            size_min: 1,
+                            sync: false
+                        }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 200,  // 增大连线距离，更稀疏
+                        color: "#58A6FF",
+                        opacity: 0.2,  // 更低的不透明度
+                        width: 0.5      // 更细的连线
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,  // 更慢的移动速度
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "grab"  // 改为grab模式
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "bubble"  // 点击时产生气泡效果
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 300,
+                            line_linked: {
+                                opacity: 0.8
+                            }
+                        },
+                        bubble: {
+                            distance: 200,
+                            size: 10,
+                            duration: 1,
+                            opacity: 0.8,
+                            speed: 2
+                        },
+                        repulse: {
+                            distance: 100
+                        },
+                        push: {
+                            particles_nb: 2
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+        });
+    </script>
+</body>
+</html>

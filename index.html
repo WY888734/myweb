@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小白装机 - 一步到位装机指南</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入了 Font Awesome  -->
+    <style>
+        /* 全局样式重置 - 消除浏览器默认样式差异 */
+        * {
+            margin: 0;       /* 外边距归零 */
+            padding: 0;      /* 内边距归零 */
+            box-sizing: border-box; /* 盒模型设为border-box，便于计算尺寸 */
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; /* 设置默认字体 */
+        }
+        
+        /* 页面主体样式 */
+        body {
+            background-image: url("/images/os-x-lion-beach-mac-3840x2160-24056.jpg"); /* 背景图片路径 */
+            background-repeat: no-repeat; /* 背景不重复 */
+            background-size: cover;      /* 背景图片覆盖整个元素 */
+            background-position: center; /* 背景图片居中 */
+            background-attachment: fixed; /* 背景固定不随滚动移动 */
+            min-height: 100vh;           /* 最小高度为视口高度 */
+            color: #333;                 /* 默认文字颜色 */
+            line-height: 1.6;            /* 行高为字体大小的1.6倍 */
+            
+        }
+        
+        /* 内容容器样式 */
+        .container {
+            max-width: 1200px;  /* 最大宽度限制 */
+            margin: 0 auto;     /* 水平居中 */
+            padding: 0 20px;    /* 左右内边距 */
+        }
+        
+        /* 导航栏样式 */
+        nav {
+            background: linear-gradient(135deg, #008cff 0%, #fbfbfb 100%);/*渐变函数*/
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 底部阴影效果 */
+            position: sticky;    /* 粘性定位 */
+            top: 0;             /* 距离顶部0 */
+            z-index: 1000;      /* 高z-index确保在最上层 */
+        }
+        
+        /* 导航栏内部布局 */
+        .navbar {
+            display: flex;              /* 弹性布局 */
+            justify-content: space-between; /* 两端对齐 */
+            align-items: center;        /* 垂直居中 */
+            padding: 15px 0;            /* 上下内边距 */
+        }
+        
+        /* 网站Logo样式 */
+        .logo {
+            display: flex;              /* 弹性布局 ，子元素自动适应宽度，支持灵活对齐*/
+            align-items: center;        /* 垂直居中 */
+            font-size: 1.5rem;          /* 字体大小 */
+            font-weight: 700;           /* 字体粗细 */
+            color: #dbeaf5;             /* 文字颜色 */
+            text-decoration: none;       /* 去除下划线 */
+        }
+        
+        /* Logo图标样式 */
+        .logo i {
+            margin-right: 10px;         /* 右边距 */
+            font-size: 1.8rem;          /* 图标大小 */
+        }
+        
+        /* 导航链接容器 */
+        .nav-links {
+            display: flex;              /* 弹性布局 */
+            list-style: none;           /* 去除列表样式 */
+        }
+        
+        /* 导航链接项 */
+        .nav-links li {
+            margin-left: 30px;          /* 左边距 */
+        }
+        
+        /* 导航链接样式 */
+        .nav-links a {
+            text-decoration: none;      /* 去除下划线 */
+            color: #333;                /* 文字颜色 */
+            font-weight: 500;           /* 字体粗细 */
+            transition: color 0.3s;     /* 颜色过渡动画 */
+            position: relative;         /* 相对定位 */
+            padding: 5px 0;             /* 上下内边距 */
+        }
+        
+        /* 导航链接悬停效果 */
+        .nav-links a:hover {
+            color: #ffffff;             /* 悬停时文字颜色 */
+            /* inset 内阴影强度的渐变过渡（默认是外阴影） */
+            box-shadow:0px 0px 20px 0px #213572 inset;
+            /* 内阴影模糊半径扩大到 20px，颜色浓度不变，形成 “从中心到边缘的阴影渐变”，视觉上像导航项背景加深且有渐变质感。 */
+            transition:box-shadow 1s linear;
+            /* 设置过渡效果，让 box-shadow 的变化在 1 秒内匀速完成，避免样式切换生硬，实现 “渐变增强” 的流畅感。 */
+        }
+        
+        
+        /* 悬停时显示下划线 */
+        .nav-links a:hover::after {
+            width: 100%;                /* 悬停时宽度100% */
+        }
+        
+        /* 登录/注册按钮容器 */
+        .auth-buttons {
+            display: flex;              /* 弹性布局 */
+            gap: 15px;                  /* 子元素间距 */
+        }
+        
+        /* 按钮基础样式 */
+        .btn {
+            padding: 8px 20px;          /* 内边距 */
+            border-radius: 4px;         /* 圆角 */
+            text-decoration: none;      /* 去除下划线 */
+            font-weight: 500;           /* 字体粗细 */
+            transition: all 0.3s;       /* 所有属性过渡动画 */
+        }
+        
+        /* 登录按钮样式 */
+        .btn-login {
+            background: transparent;    /* 透明背景 */
+            border: 1px solid #e32626; /* 边框 */
+            color: #e74c3c;             /* 文字颜色 */
+        }
+        
+        /* 登录按钮悬停效果 */
+        .btn-login:hover {
+            background: #e74c3c;       /* 悬停时背景色 */
+            color: white;              /* 悬停时文字颜色 */
+        }
+        
+        /* 注册按钮样式 */
+        .btn-register {
+            background: #e74c3c;       /* 背景色 */
+            color: white;              /* 文字颜色 */
+            border: 1px solid #e74c3c; /* 边框 */
+        }
+        
+        /* 注册按钮悬停效果 */
+        .btn-register:hover {
+            background: #c0392b;       /* 悬停时背景色 */
+            border-color: #c0392b;     /* 悬停时边框色 */
+        }
+        
+        /* 主要内容区域样式 */
+        main {
+            padding: 40px 0;            /* 上下内边距 */
+            flex: 1;
+        }
+        
+        /* 页面头部样式 */
+        header {
+            background: rgba(255, 255, 255, 0.9); /* 半透明白色背景 */
+            color: #333;                /* 文字颜色 */
+            text-align: center;         /* 文字居中 */
+            padding: 30px 20px;         /* 内边距 */
+            margin-bottom: 30px;        /* 下边距 */
+            border-radius: 8px;         /* 圆角 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+        }
+        
+        /* 主标题样式 */
+        header h1 {
+            font-size: 2.2rem;          /* 字体大小 */
+            margin-bottom: 15px;        /* 下边距 */
+            color: #2c3e50;             /* 文字颜色 */
+        }
+        
+        /* 欢迎区域样式 */
+        .welcome-section {
+            background: rgba(255, 255, 255, 0.85); /* 半透明白色背景 */
+            padding: 25px;               /* 内边距 */
+            border-radius: 8px;          /* 圆角 */
+            margin-bottom: 30px;         /* 下边距 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 阴影效果 */
+        }
+        
+        /* 欢迎区域段落样式 */
+        .welcome-section p {
+            font-size: 1.1rem;          /* 字体大小 */
+            margin-bottom: 20px;         /* 下边距 */
+        }
+        
+        
+        /* 步骤区域布局 */
+        .steps-section {
+            display: grid;                      /* 网格布局 */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* 自动填充列 */
+            gap: 20px;                          /* 网格间距 */
+            margin: 30px 0;                     /* 上下外边距 */
+        }
+        
+        /* 步骤卡片样式 */
+        .step-card {
+            background: rgba(255, 255, 255, 0.9); /* 半透明白色背景 */
+            border-radius: 8px;          /* 圆角 */
+            padding: 20px;               /* 内边距 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 阴影效果 */
+            transition: transform 0.3s, box-shadow 0.3s; /* 过渡动画 */
+        }
+        
+        /* 步骤卡片悬停效果 */
+        .step-card:hover {
+            transform: translateY(-5px);  /* 上移5像素 */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* 悬停时阴影效果 */
+        }
+        
+        /* 步骤卡片标题样式 */
+        .step-card h3 {
+            color: #f792d9;             /* 文字颜色 */
+            margin-bottom: 10px;         /* 下边距 */
+            font-size: 1.2rem;           /* 字体大小 */
+        }
+        
+        /* 步骤卡片链接样式 */
+        .step-card a {
+            display: inline-block;       /* 行内块元素 */
+            margin-top: 10px;            /* 上边距 */
+            color: #3498db;              /* 文字颜色 */
+            text-decoration: none;       /* 去除下划线 */
+            font-weight: 500;            /* 字体粗细 */
+        }
+        
+        /* 步骤卡片链接悬停效果 */
+        .step-card a:hover {
+            text-decoration: underline;  /* 悬停时下划线 */
+        }
+        
+        /* 作品展示区域样式 */
+        .gallery-section {
+            background: rgba(255, 255, 255, 0.85); /* 半透明白色背景 */
+            padding: 25px;               /* 内边距 */
+            border-radius: 8px;          /* 圆角 */
+            margin: 30px 0;               /* 上下外边距 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 阴影效果 */
+        }
+        
+        /* 媒体内容容器 */
+        .media-container {
+            display: flex;               /* 弹性布局 */
+            flex-wrap: wrap;             /* 允许换行 */
+            gap: 20px;                   /* 子元素间距 */
+            margin-top: 20px;            /* 上边距 */
+        }
+        
+        /* 媒体项样式 */
+        .media-item {
+            flex: 1;               
+            /* 弹性增长：必须搭配「弹性父容器」，否则 flex: 1 无效        
+            是 flex-grow: 1; flex-shrink: 1; flex-basis: 0% 的简写，
+            作用是：
+            让所有 .media-item 平分父容器的「剩余空间」（比如父容器宽 1000px，3 个媒体项，每个默认分 1/3 宽度）*/
+            min-width: 300px;            /* 最小宽度 */
+            border-radius: 8px;          /* 圆角 */
+            overflow: hidden;            /* 溢出隐藏 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+        }
+        
+        /* 图片和视频样式 */
+        .media-item img, .media-item video {
+            width: 100%;                 /* 宽度100% */
+            height: auto;                /* 高度自适应 */
+            display: block;              /* 让行内元素 “变” 块级*/
+        }
+        
+        
+        
+        /* 页脚样式 */
+        footer {
+            background: #333; /* 页脚背景色：深灰色（对应示例的深色背景效果） */
+            color: #fff;      /* 页脚文字颜色：纯白色（确保文字在深色背景上清晰可见） */
+            text-align: center; /* 页脚内所有内容（文字、链接）水平居中对齐 */
+            padding: 15px 0;  /* 页脚上下内边距15px，左右内边距0（控制页脚垂直方向的高度和内部间距） */
+            margin-top: 40px; /* 页脚顶部外边距40px，与上方main内容区保持间距，避免紧贴 */
+            border-radius: 8px 8px 0 0; /* 页脚顶部左右角圆角8px，底部左右角直角（与示例样式一致） */
+        }
+        
+        /* 页脚链接样式 */
+        footer a {
+            color: #76d7ef;             /* 文字颜色 */
+            text-decoration: none;      /* 去除下划线 */
+            font-weight: 500;           /* 字体粗细 */
+        }
+        
+        /* 页脚链接悬停效果 */
+        footer a:hover {
+            text-decoration: underline;  /* 悬停时下划线 */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container">
+            <div class="navbar">
+                <!-- 网站Logo -->
+                <a href="#" class="logo">
+                    <i class="fas fa-tools"></i>
+                    小白装机
+                </a>
+                
+                <!-- 导航链接 -->
+                <ul class="nav-links">
+                    <li><a href="#home">&nbsp;&nbsp;&nbsp;&nbsp;首页&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                    <li><a href="#steps">装机步骤</a></li>
+                    <li><a href="#gallery">作品展示</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="/index3.html">新版入口</a></li>
+                </ul>
+                
+                <!-- 登录/注册按钮 -->
+                <div class="auth-buttons">
+                    <a href="/login.html" class="btn btn-login">登录</a>
+                    <a href="/register.html" class="btn btn-register">注册</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主要内容区域 -->
+    <main class="container">
+        <!-- 页面头部 -->
+        <header id="home">
+            <h1>「一步到位装机指南」—— 从0到1的硬件组装全流程</h1>
+            <p>专业、详细、易懂的电脑装机教程</p>
+        </header>
+        
+        <!-- 欢迎区域 -->
+        <section class="welcome-section">
+            <p>欢迎来到小白装机指南网站！我们提供从零开始的完整装机教程，让您轻松掌握电脑硬件组装技能。</p>
+            <p>点击下方流程步骤，进入对应子页面学习详细操作~</p>
+            
+            <!-- 音频播放器 -->
+            <div class="audio-player">
+                <audio controls="controls" height="100" width="100" autoplay>
+                    <source src="/music/River Flows in You.mp3" type="audio/mp3" />
+                    <embed height="100" width="100" src="/music/River Flows in You.mp3" />
+                </audio>
+            </div>
+        </section>
+        
+        <!-- 装机步骤区域 -->
+        <section id="steps">
+            <h2>装机全流程总览</h2>
+            <div class="steps-section">
+                <!-- 步骤1卡片 -->
+                <div class="step-card">
+                    <h3>步骤1：装机前准备</h3>
+                    <p>了解装机所需工具和注意事项，做好充分准备。</p>
+                    <a href="/step1.html">查看详情 →</a>
+                </div>
+                
+                <!-- 步骤2卡片 -->
+                <div class="step-card">
+                    <h3>步骤2：安装CPU与散热器</h3>
+                    <p>正确安装CPU和散热器，确保核心部件稳定运行。</p>
+                    <a href="/step2.html">查看详情 →</a>
+                </div>
+                
+                <!-- 步骤3卡片 -->
+                <div class="step-card">
+                    <h3>步骤3：安装内存</h3>
+                    <p>安装内存条，提升电脑运行速度。</p>
+                    <a href="/step3.html">查看详情 →</a>
+                </div>
+                
+                <!-- 步骤4卡片 -->
+                <div class="step-card">
+                    <h3>步骤4：安装硬盘</h3>
+                    <p>安装存储设备，为系统安装做好准备。</p>
+                    <a href="/step4.html">查看详情 →</a>
+                </div>
+                
+                <!-- 步骤5卡片 -->
+                <div class="step-card">
+                    <h3>步骤5：连接主板与电源</h3>
+                    <p>正确连接主板与电源，确保电力供应稳定。</p>
+                    <a href="/step5.html">查看详情 →</a>
+                </div>
+                
+                <!-- 步骤6卡片 -->
+                <div class="step-card">
+                    <h3>步骤6：安装独立显卡</h3>
+                    <p>安装显卡，提升图形处理能力。</p>
+                    <a href="/step6.html">查看详情 →</a>
+                </div>
+                
+                <!-- 步骤7卡片 -->
+                <div class="step-card">
+                    <h3>步骤7：装机收尾与点亮测试</h3>
+                    <p>完成装机并进行首次开机测试。</p>
+                    <a href="/step7.html">查看详情 →</a>
+                </div>
+                
+                <!-- 步骤8卡片 -->
+                <div class="step-card">
+                    <h3>步骤8：线材整理</h3>
+                    <p>整理机箱内部线材，确保散热和美观。</p>
+                    <a href="/step8.html">查看详情 →</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 作品展示区域 -->
+        <section class="gallery-section" id="gallery">
+            <h2>站主作品</h2>
+            <p>欣赏一些精美的装机作品和演示视频</p>
+            
+            <div class="media-container"> 
+                <!-- 媒体项1 -->
+                <div class="media-item">
+                     <img src="/images/微信图片_20251021191407_37_17.jpg" alt="装机图集" width="300px">
+                </div>
+                
+                <!-- 媒体项2 - 视频 -->
+                <div class="media-item">
+                    <video width="320" height="240" controls="controls" loop muted>
+                        <source src="/videos/8a7b271e2da11b70628c5b5829afc53e.mp4" type="video/mp4" />
+                        <object data="/videos/8a7b271e2da11b70628c5b5829afc53e.mp4" width="320" height="240">
+                            <embed width="320" height="240" src="/videos/8a7b271e2da11b70628c5b5829afc53e.mp4" />
+                        </object>
+                    </video>
+                </div>
+            </div>
+        </section>
+        
+       
+    </main>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2025 小白装机指南 | <a href="mailto:someone@microsoft.com?subject=Hello%20again">联系我们</a></p>
+        </div>
+    </footer>
+</body>
+</html>

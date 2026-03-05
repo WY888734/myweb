@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>智能配置单生成器 - 专业版</title>
+    <style>
+        /* === 全局样式 === */
+        body { background-color: #0D1117; color: #C9D1D9; font-family: 'Segoe UI', sans-serif; padding: 20px; margin: 0; }
+        h2 { color: #58A6FF; margin-bottom: 30px; }
+        
+        /* === 布局容器 === */
+        .container { display: flex; gap: 20px; max-width: 1200px; margin: 0 auto; align-items: flex-start; }
+
+        /* === 顶部导航分类栏 === */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            background-color: #21262D;
+            border: 1px solid #30363D;
+            color: #C9D1D9;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;/* 鼠标悬停小手 */
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover { background-color: #30363D; border-color: #8B949E; }
+        
+        /* 选中状态高亮 */
+        .nav-item.active {
+            background-color: #1F6FEB;
+            border-color: #1F6FEB;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* === 左侧硬件列表区域 === */
+        .parts-list { 
+            flex: 3; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 20px; 
+        }
+
+        /* 硬件卡片样式 */
+        .part-card { 
+            background: #161B22; 
+            border: 1px solid #30363D; 
+            padding: 15px; 
+            border-radius: 12px; 
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .part-card:hover { 
+            border-color: #58A6FF; 
+            transform: translateY(-5px); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* 硬件图片容器 */
+        .card-img {
+            width: 100%;
+            height: 140px;
+            background-color: #0D1117;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            object-fit: contain; /* 保持图片比例 */
+            border: 1px solid #21262D;
+        }
+
+        .part-card h3 { 
+            color: #58A6FF; font-size: 1.1rem; margin: 10px 0 5px 0; 
+        }
+        
+        .part-desc {
+            font-size: 0.85rem; color: #8B949E; margin-bottom: 10px; flex-grow: 1; line-height: 1.4;
+        }
+
+        .part-price {
+            font-size: 1.1rem; color: #FFFFFF; font-weight: bold; margin-bottom: 10px;
+        }
+
+        .btn-add { 
+            background: #238636; color: white; border: none; padding: 8px 0; 
+            border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%;
+            transition: background 0.2s;
+        }
+        .btn-add:hover { background: #2EA043; }
+
+        /* === 右侧配置清单区域 === */
+        .config-summary { 
+            flex: 1; 
+            background: #161B22; 
+            border: 1px solid #30363D; 
+            padding: 20px; 
+            border-radius: 12px; 
+            position: sticky; 
+            top: 20px; 
+            min-width: 280px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        .config-summary h3 { margin-top: 0; border-bottom: 1px solid #30363D; padding-bottom: 15px; }
+
+        .summary-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 10px 0; 
+            border-bottom: 1px solid #21262D; 
+            font-size: 0.9rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* 列表项的淡入动画 */
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+
+        .item-info { display: flex; flex-direction: column; }
+        .item-name { color: #C9D1D9; font-weight: 500; }
+        .item-price { color: #8B949E; font-size: 0.85rem; }
+
+        /* 删除按钮样式 */
+        .btn-delete {
+            background: transparent;
+            border: 1px solid #30363D;
+            color: #F85149;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            transition: all 0.2s;
+        }
+        .btn-delete:hover { background: #F85149; color: white; border-color: #F85149; }
+
+        .total-price { 
+            font-size: 1.5rem; color: #58A6FF; margin-top: 20px; 
+            text-align: right; border-top: 2px solid #30363D; padding-top: 15px; 
+        }
+        
+        .btn-reset { 
+            background: #DA3633; color: white; border: none; width: 100%; 
+            padding: 12px; margin-top: 15px; border-radius: 6px; cursor: pointer; font-weight: bold;
+        }
+        .btn-reset:hover { background: #B62324; }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .config-summary { width: 100%; box-sizing: border-box; }
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: center;"> 智能装机配置生成器 </h2>
+
+    <div class="nav-tabs" id="categoryNav">
+        <div class="nav-item active" onclick="filterParts('全部')">全部</div>
+        <div class="nav-item" onclick="filterParts('CPU')">CPU处理器</div>
+        <div class="nav-item" onclick="filterParts('主板')">主板</div>
+        <div class="nav-item" onclick="filterParts('显卡')">显卡</div>
+        <div class="nav-item" onclick="filterParts('内存')">内存</div>
+        <div class="nav-item" onclick="filterParts('硬盘')">硬盘</div>
+        <div class="nav-item" onclick="filterParts('电源')">电源</div>
+    </div>
+
+    <div class="container">
+        <div class="parts-list" id="partsDisplay">
+            </div>
+
+        <div class="config-summary">
+            <h3>🛒 已选配置清单</h3>
+            <div id="selectedItems">
+                <p style="color: #8B949E; text-align: center; padding: 20px;">请从左侧选择硬件...</p>
+            </div>
+            <div class="total-price">总预算: ¥<span id="totalPrice">0</span></div>
+            <button class="btn-reset" onclick="resetConfig()">🗑️ 清空所有配置</button>
+        </div>
+    </div>
+
+    <script>
+        // === 核心数据：包含图片、描述、最新硬件 ===
+        // 注意：img 属性目前是网络占位图，你可以下载真实图片放在项目文件夹里，然后把路径改为 'images/cpu.jpg' 等
+        // {} —— 对象（Object）
+        //   字段	含义	在页面里干嘛
+         //   id  唯一编号	用来精准找到这件硬件
+         //  type	分类	CPU / 主板 / 显卡，用来筛选
+         //   name	名称	显示在卡片和清单中
+         //  price	价格	计算总价
+         //  img	图片地址	卡片里的图片
+         //我将所有硬件信息封装在一个名为 hardwareData 的对象数组中。这种“数据与视图分离”的做法，使得我未来只需要修改这个数组，
+         // 就能完成数千款产品的更新，而不需要改动一行 HTML 代码。
+        const hardwareData = [
+            // CPU
+            { id: 101, type: 'CPU', name: 'Intel i5-13600KF', price: 1899, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/225623/30/1817/71419/656ad28eFc96ba08d/e0733ed89bd678d5.jpg.avif' },
+            { id: 102, type: 'CPU', name: 'Intel i7-14700KF', price: 2899, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/290144/33/14748/35686/6879b294F6b99047b/882400190d12c085.jpg.avif' },
+            { id: 103, type: 'CPU', name: 'AMD Ryzen 7 7800X3D', price: 2499, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/177707/3/40143/30796/65321d93F1ee843d3/ddd9c04eba994144.jpg.avif' },
+          
+            // 主板
+            { id: 201, type: '主板', name: '微星 B760M 迫击炮 II', price: 1299, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/299127/12/5242/129213/685cc98aF47c39cc4/3896c167ab90140a.jpg.avif' },
+            { id: 202, type: '主板', name: '华硕 ROG STRIX Z790-A', price: 2499, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/166197/17/44331/101304/6618d216Fa42f1e0a/ec03b1f5ef00ef00.jpg.avif' },
+
+            // 显卡
+            { id: 301, type: '显卡', name: '七彩虹 RTX 4060 Ti', price: 3199, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/307887/2/12569/105355/685ca919F2b1929aa/f0de849977f45f51.png.avif' },
+            { id: 302, type: '显卡', name: '华硕 RTX 4070 Super', price: 5299, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/295592/28/9409/90691/68343695F17495192/8c18069e9cd9282c.png.avif' },
+            { id: 303, type: '显卡', name: '微星 RTX 4080 Super', price: 8999, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/240477/28/33942/47524/68e610b8Fe96fe6db/89380ba9b0af6305.jpg.avif' },
+
+            // 内存
+            { id: 401, type: '内存', name: '金百达 32GB(16x2) 6000', price: 699, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/294133/27/949/157337/680f27e7F5acdcc74/5e89c1a32b864791.jpg.avif' },
+            { id: 402, type: '内存', name: '芝奇 幻锋戟 32GB RGB', price: 1099, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/249412/2/13937/99461/66866b56Ff56f21fc/9009ea4e58b21c3b.jpg.avif' },
+
+            // 硬盘
+            { id: 501, type: '硬盘', name: '致态 TiPlus7100 1TB', price: 499, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/314497/17/15213/60170/686c94efF52772d92/fa5441c795559a60.jpg.avif' },
+            { id: 502, type: '硬盘', name: '三星 990 Pro 2TB', price: 1299, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/297797/26/19723/212201/6863a243Fb0ffc58f/8852ef34fba11ec7.jpg.avif' },
+
+            // 电源
+            { id: 601, type: '电源', name: '长城 750W 金牌全模组', price: 459, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/338881/22/2459/99420/68aea818F2daa91f9/830b864a7a5ea192.jpg.avif' },
+            { id: 602, type: '电源', name: '海韵 1000W ATX3.0', price: 1199, img: 'https://img10.360buyimg.com/pcpubliccms/s1440x1440_jfs/t1/356951/19/16358/92247/69254f27F53885148/07979c5287e1b349.jpg.avif' }
+        ];
+
+        // 状态数组
+        let myConfig = [];
+        let currentCategory = '全部';
+
+        // === 功能1：分类过滤 ===
+        function filterParts(category) {
+            currentCategory = category;
+            //<div class="nav-item" onclick="filterParts('CPU')">CPU处理器</div>
+            //onclick="filterParts('CPU')" 是 HTML 内联事件绑定写法，核心作用是「点击某个元素时，调用 filterParts 函数并传入参数 'CPU'」，通
+            
+            // 1. 更新导航栏高亮样式
+            // 这个功能的核心在于 ‘排他性处理’。
+            // 我首先利用 querySelectorAll 抓取所有导航项，然后通过 forEach 循环进行遍历。
+            // 在循环内部，我使用 includes 进行逻辑判断：匹配成功的项通过 classList.add 挂载高亮样式，匹配失败的项则通过 remove 剔除样式。
+            // 最后，通过调用 renderParts 实现数据层与视图层的同步更新。”
+            const navItems = document.querySelectorAll('.nav-item');//把页面上所有 class 名字带有 nav-item 的按钮全部抓过来，存进 navItems 这个集合（类似数组）里。
+            navItems.forEach(item => {//forEach(item => {}) 是一个箭头函数，它会遍历 navItems 这个集合里的每个元素（这里的 item 就是每一个按钮），并对它们执行里面的代码。
+
+                if(item.innerText.includes(category) || (category === '全部' && item.innerText === '全部')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // 2. 渲染筛选后的数据
+            renderParts();
+        }
+
+        // === 功能2：渲染硬件列表 (带图片和描述) ===
+        function renderParts() {
+            const display = document.getElementById('partsDisplay');
+            
+            // 数组过滤：如果分类是“全部”，就显示所有；否则只显示对应 type 的硬件
+            //filter() 是 JavaScript 中数组的核心方法，核心作用是：遍历数组，根据指定条件筛选出符合要求的元素，返回一个全新的数组（原数组不会被修改）。
+            const filteredData = currentCategory === '全部' 
+                ? hardwareData 
+                : hardwareData.filter(
+                    function(item) {
+                     return item.type === currentCategory;
+                                    });//执行 filter() 筛选，只保留 item.type 等于 currentCategory 的元素。
+
+
+            //模板字符串（反引号 ` 的秘密）    
+            //map()是一个规则函数，它会根据回调函数的规则改变数组中的每个元素，并返回一个新数组。
+            // 是 JavaScript 数组的另一个核心方法，作用是：遍历数组中的每个元素，执行一个函数（通常用来修改或生成新值），并返回一个新的数组。
+            display.innerHTML = filteredData.map(function(item) {//filteredData是在上面筛选出的数组
+            return `
+                <div class="part-card">
+                    <img src="${item.img}" alt="${item.name}" class="card-img">
+                    <h3>${item.name}</h3>
+                    <div class="part-desc">${item.desc}</div>
+                    <div class="part-price">¥${item.price}</div>
+                    <button class="btn-add" onclick="addToConfig(${item.id})">＋ 加入配置单</button>
+                    </div>
+                `;
+            }).join('');
+            }
+
+        // === 功能3：添加硬件 ===
+        //数组.find(函数)
+        // 作用：
+        // 在数组中找“第一个”满足条件的元素，并返回它
+        // 如果找不到，返回 undefined
+        function addToConfig(id) {//用于加入配置单
+            const item = hardwareData.find(function(p) {
+                                                        return p.id === id;
+                                                        });
+            // 复制一个新对象存入数组，这样添加两个一样的硬件也没问题
+            myConfig.push({...item}); //数组.push(元素)往数组末尾添加一个新元素
+            //... 的具体语法功能是：取出对象中所有可遍历的属性，并将它们拷贝到当前对象中。把原对象的所有属性，逐一复制到新对象里，相当于给对象做一份‘独立的副本’”
+            updateSummary();//更新页面
+        }
+
+        // === 功能4：移除单个硬件 (核心 JS 逻辑：splice) ===
+        function removePart(index) {
+            // 从数组中删除指定索引的 1 个元素
+            myConfig.splice(index, 1); 
+            //在数组中，从 index 这个下标位置开始，删除 1 个元素（会直接修改原数组，同时返回被删除的元素组成的数组）。
+            updateSummary();
+        }
+
+        // === 功能5：更新汇总 & 计价 ===
+        function updateSummary() {
+            const listDiv = document.getElementById('selectedItems');
+            const totalSpan = document.getElementById('totalPrice');
+
+            //如果数组为空，则显示提示信息并重置总价
+            if (myConfig.length === 0) {
+                listDiv.innerHTML = '<p style="color: #8B949E; text-align: center; margin-top:20px;">尚未选择硬件...</p>';
+                totalSpan.innerText = '0';
+                return;
+            }
+
+            //已选清单列表
+            // 渲染清单：注意这里传入了 index，用于删除功能
+            listDiv.innerHTML = myConfig.map((item, index) => `
+                <div class="summary-item">
+                    <div class="item-info">
+                        <span class="item-name">${item.type} | ${item.name}</span>
+                        <span class="item-price">¥${item.price}</span>
+                    </div>
+                    <button class="btn-delete" onclick="removePart(${index})" title="删除此项">×</button>
+                </div>
+            `).join('');
+
+            // 计算总价
+            const total = myConfig.reduce((sum, item) => sum + item.price, 0);
+            totalSpan.innerText = total;//写入总价
+        }
+
+        // 清空所有
+        function resetConfig() {
+            if(confirm("确定要清空当前的配置单吗？")) {
+                myConfig = [];
+                updateSummary();
+            }
+        }
+
+        // 初始化页面
+        renderParts();
+    </script>
+</body>
+</html>
+

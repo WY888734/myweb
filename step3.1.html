@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>步骤3：安装内存条 - 电脑组装指南</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 1. 基础环境复刻 */
+        body {
+            background-color: #0D1117; 
+            color: #C9D1D9;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            padding: 30px;
+            margin: 0;
+        }
+
+        header {
+            border-bottom: 2px solid #30363D;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #58A6FF;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        h1 i { margin-right: 12px; }
+
+        .card {
+            background: #161B22;
+            border: 1px solid #30363D;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        h2 { font-size: 1.4rem; color: #8957E5; margin-top: 10px; border: none; padding-left: 0; }
+        h3 { font-size: 1.1rem; color: #58A6FF; margin-top: 15px; }
+
+        /* 2. 流程列表复刻 */
+        .flow-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .flow-list li {
+            padding: 10px 15px;
+            background: rgba(88, 166, 255, 0.05);
+            border-left: 3px solid #58A6FF;
+            margin-bottom: 10px;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+        }
+
+        /* 3. 提示框 (Warning) 适配 */
+        .tip-box {
+            background-color: rgba(210, 153, 34, 0.1);
+            border: 1px solid rgba(210, 153, 34, 0.4);
+            border-left: 4px solid #D29922;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+            color: #E3B341;
+            text-align: left;
+        }
+
+        /* 4. 视频容器适配 */
+        .media-wrapper {
+            max-width: 650px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #30363D;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        /* 5. 表格美化 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #0D1117;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #30363D;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #30363D;
+        }
+        th {
+            background-color: #21262D;
+            color: #58A6FF;
+        }
+        tr:hover { background-color: rgba(88, 166, 255, 0.05); }
+
+        /* 6. 标签组 */
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+        .tag {
+            background: #21262D;
+            border: 1px solid #30363D;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #79C0FF;
+        }
+
+        /* 7. 页脚导航复刻 */
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #30363D;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a { color: #8B949E; text-decoration: none; font-size: 0.9rem; }
+        .next-step {
+            background: #238636;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .next-step:hover { background: #2ea043; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fas fa-memory"></i> 步骤3：安装内存条 (RAM)</h1>
+    </header>
+
+    <div class="card">
+        <h2>一、核心安装流程</h2>
+        <ul class="flow-list">
+            <li><strong>1. 准备插槽：</strong> 掰开主板内存插槽两端的扣具（部分主板仅有一端可动）。</li>
+            <li><strong>2. 确认缺口：</strong> 观察内存条底部的 <strong>防呆缺口</strong>，确保其与主板插槽上的凸起部位对齐。</li>
+            <li><strong>3. 精准置入：</strong> 将内存条垂直放入插槽，确保金手指完全进入。</li>
+            <li><strong>4. 用力按压：</strong> 双手拇指同时按住内存条两端用力下压，听到 <strong>“咔哒”</strong> 声且扣具自动回弹。</li>
+        </ul>
+
+        <div class="tip-box">
+            <i class="fas fa-exclamation-triangle"></i> <strong>💡 避坑小贴士：</strong> 
+            如果扣具没有自动弹回，千万不要开机！说明没插紧，可能会导致无法点亮甚至烧毁金手指。
+        </div>
+    </div>
+
+    <div class="card" style="text-align: center;">
+        <h2>二、视频实操演示</h2>
+        <div class="media-wrapper">
+            <div class="video-container">
+                <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=733545707&bvid=BV1fD4y1h7aK&cid=918305407&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>三、进阶知识：双通道插法</h2>
+        <p style="font-size: 0.95rem; color: #8B949E;">为了获得最佳性能，如果你有两根内存，应优先安装在 <strong>第 2 和 第 4 个插槽</strong>。</p>
+        
+        
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>内存数量</th>
+                    <th>推荐插槽位置</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1 根</td>
+                    <td>第 2 槽</td>
+                    <td>保证信号最稳定</td>
+                </tr>
+                <tr>
+                    <td>2 根</td>
+                    <td>第 2 + 4 槽</td>
+                    <td>开启双通道，性能翻倍</td>
+                </tr>
+                <tr>
+                    <td>4 根</td>
+                    <td>插满</td>
+                    <td>适合生产力需求</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card" style="text-align: center;">
+        <h2>四、主流品牌推荐</h2>
+        <h3>第一梯队（极致稳定）</h3>
+        <div class="tag-group">
+            <span class="tag">金士顿 (Kingston)</span><span class="tag">芝奇 (G.Skill)</span><span class="tag">美光 (Crucial)</span>
+        </div>
+        
+        <h3>第二梯队（高性价比）</h3>
+        <div class="tag-group">
+            <span class="tag">海盗船 (Corsair)</span><span class="tag">威刚 (ADATA)</span><span class="tag">宏碁掠夺者</span>
+        </div>
+
+        <h3>国产之光</h3>
+        <div class="tag-group">
+            <span class="tag">光威 (Gloway)</span><span class="tag">金泰克 (Tigo)</span>
+        </div>
+    </div>
+
+    <footer>
+        <a href="index3.html" target="_parent"><i class="fas fa-home"></i> 返回主页面</a>
+        <a href="step4.1.html" class="next-step">下一步：安装固态硬盘 <i class="fas fa-arrow-right"></i></a>
+    </footer>
+
+</body>
+</html>
